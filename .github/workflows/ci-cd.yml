@@ -1,0 +1,36 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run Tests
+        run: python manage.py test
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          appli
+├── backend_project/
+├── api/
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── terraform/
+│   ├── main.tf
+│   ├── variables.tf
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── README.md
+└── .env.example
